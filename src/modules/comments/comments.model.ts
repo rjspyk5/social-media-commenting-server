@@ -1,7 +1,7 @@
 
 import mongoose, { Schema } from "mongoose";
 
-export const commentSchema = new Schema({
+ const commentSchema = new Schema({
     text: {
         type: String,
         required: true,
@@ -26,4 +26,4 @@ export const commentSchema = new Schema({
     ]
 }, { timestamps: true })
 
-module.exports = mongoose.model("Comment", commentSchema)
+export const CommentModel = mongoose.model("Comment", commentSchema)

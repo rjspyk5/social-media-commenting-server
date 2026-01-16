@@ -1,1 +1,1 @@
-{"version":3,"file":"comments.routes.js","sourceRoot":"","sources":["../../../src/modules/comments/comments.routes.ts"],"names":[],"mappings":""}
+{"version":3,"file":"comments.routes.js","sourceRoot":"","sources":["../../../src/modules/comments/comments.routes.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,SAAS,CAAC;AACjC,OAAO,EAAE,cAAc,EAAE,MAAM,0BAA0B,CAAC;AAE1D,MAAM,CAAC,MAAM,cAAc,GAAC,MAAM,EAAE,CAAC;AAErC,cAAc,CAAC,GAAG,CAAC,GAAG,EAAC,cAAc,CAAC,CAAA;AAEtC,yCAAyC;AACzC,oDAAoD;AACpD,uDAAuD;AACvD,8CAA8C;AAC9C,yCAAyC"}

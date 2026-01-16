@@ -1,1 +1,1 @@
-{"version":3,"file":"isAuthorized.js","sourceRoot":"","sources":["../../../src/shared/middleware/isAuthorized.ts"],"names":[],"mappings":""}
+{"version":3,"file":"isAuthorized.js","sourceRoot":"","sources":["../../../src/shared/middleware/isAuthorized.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,MAAM,YAAY,GAAC,GAAE,EAAE;AAE9B,CAAC,CAAA"}
