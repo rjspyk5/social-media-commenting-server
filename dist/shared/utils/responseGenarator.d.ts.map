@@ -1,0 +1,1 @@
+{"version":3,"file":"responseGenarator.d.ts","sourceRoot":"","sources":["../../../src/shared/utils/responseGenarator.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,MAAM,SAAS,CAAA;AAEvC,eAAO,MAAM,iBAAiB,GAAI,wBAAkC;IAAE,OAAO,CAAC,EAAE,MAAM,CAAC;IAAC,IAAI,CAAC,EAAE,GAAG,EAAE,CAAC;IAAC,GAAG,EAAE,QAAQ,CAAA;CAAE,uCAEpH,CAAA"}
