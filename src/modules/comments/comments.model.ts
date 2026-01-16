@@ -1,8 +1,7 @@
-import { timeStamp } from "console";
+
 import mongoose, { Schema } from "mongoose";
 
 export const commentSchema = new Schema({
-
     text: {
         type: String,
         required: true,
@@ -13,12 +12,18 @@ export const commentSchema = new Schema({
         ref: "User",
         required: true
     },
-    likes: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    },
-    dislikes: {
+    likes: [
+        {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
     }
-},timeStamp)
+    ],
+    dislikes: [
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }
+    ]
+}, { timestamps: true })
+
+module.exports = mongoose.model("Comment", commentSchema)

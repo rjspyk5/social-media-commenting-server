@@ -1,7 +1,12 @@
-// import z from "zod/v3";
-export {};
-// export const commentSchema = z.object({
-//  text:z.string().min(1,"Text cannot be empty"),
-//  author:z.string().min(1,"Author name cannot be empty"),
-// })
+import z from "zod/v3";
+export const createCommentSchema = z.object({
+    text: z
+        .string()
+        .min(1, "Comment cannot be empty")
+        .max(1000, "Comment too long"),
+    parentComment: z
+        .string()
+        .optional()
+        .nullable()
+});
 //# sourceMappingURL=comments.schema.js.map

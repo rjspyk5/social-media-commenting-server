@@ -1,28 +1,26 @@
 import mongoose from "mongoose";
 export declare const commentSchema: mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, {
-    (label?: string): void;
-    (label?: string): void;
+    timestamps: true;
 }, {
     text: string;
     author: mongoose.Types.ObjectId;
-    likes?: mongoose.Types.ObjectId | null;
-    dislikes?: mongoose.Types.ObjectId | null;
-}, mongoose.Document<unknown, {}, {
+    likes: mongoose.Types.ObjectId[];
+    dislikes: mongoose.Types.ObjectId[];
+} & mongoose.DefaultTimestampProps, mongoose.Document<unknown, {}, {
     text: string;
     author: mongoose.Types.ObjectId;
-    likes?: mongoose.Types.ObjectId | null;
-    dislikes?: mongoose.Types.ObjectId | null;
-}, {
+    likes: mongoose.Types.ObjectId[];
+    dislikes: mongoose.Types.ObjectId[];
+} & mongoose.DefaultTimestampProps, {
     id: string;
 }, mongoose.ResolveSchemaOptions<{
-    (label?: string): void;
-    (label?: string): void;
+    timestamps: true;
 }>> & Omit<{
     text: string;
     author: mongoose.Types.ObjectId;
-    likes?: mongoose.Types.ObjectId | null;
-    dislikes?: mongoose.Types.ObjectId | null;
-} & {
+    likes: mongoose.Types.ObjectId[];
+    dislikes: mongoose.Types.ObjectId[];
+} & mongoose.DefaultTimestampProps & {
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
@@ -34,19 +32,18 @@ export declare const commentSchema: mongoose.Schema<any, mongoose.Model<any, any
     [x: string]: mongoose.SchemaDefinitionProperty<any, any, mongoose.Document<unknown, {}, {
         text: string;
         author: mongoose.Types.ObjectId;
-        likes?: mongoose.Types.ObjectId | null;
-        dislikes?: mongoose.Types.ObjectId | null;
-    }, {
+        likes: mongoose.Types.ObjectId[];
+        dislikes: mongoose.Types.ObjectId[];
+    } & mongoose.DefaultTimestampProps, {
         id: string;
     }, mongoose.ResolveSchemaOptions<{
-        (label?: string): void;
-        (label?: string): void;
+        timestamps: true;
     }>> & Omit<{
         text: string;
         author: mongoose.Types.ObjectId;
-        likes?: mongoose.Types.ObjectId | null;
-        dislikes?: mongoose.Types.ObjectId | null;
-    } & {
+        likes: mongoose.Types.ObjectId[];
+        dislikes: mongoose.Types.ObjectId[];
+    } & mongoose.DefaultTimestampProps & {
         _id: mongoose.Types.ObjectId;
     } & {
         __v: number;
@@ -56,8 +53,10 @@ export declare const commentSchema: mongoose.Schema<any, mongoose.Model<any, any
 }, {
     text: string;
     author: mongoose.Types.ObjectId;
-    likes?: mongoose.Types.ObjectId | null;
-    dislikes?: mongoose.Types.ObjectId | null;
+    likes: mongoose.Types.ObjectId[];
+    dislikes: mongoose.Types.ObjectId[];
+    createdAt: NativeDate;
+    updatedAt: NativeDate;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
