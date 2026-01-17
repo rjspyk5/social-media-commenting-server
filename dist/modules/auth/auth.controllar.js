@@ -1,6 +1,6 @@
 import { loginService, registrationService, userDetailsService } from "./auth.service.js";
 export const login = async (req, res, next) => {
-    const { email, password } = req.body ?? {};
+    const { email, password, name } = req.body ?? {};
     try {
         const token = await loginService({ email, password });
         res.json({
@@ -14,9 +14,9 @@ export const login = async (req, res, next) => {
     }
 };
 export const register = async (req, res, next) => {
-    const { email, password, role } = req.body ?? {};
+    const { email, password, name } = req.body ?? {};
     try {
-        const user = await registrationService({ email, password, role });
+        const user = await registrationService({ email, password, name });
         return res.json({
             success: true,
             message: "User created successfully",

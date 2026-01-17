@@ -15,8 +15,9 @@ export const createComment = async (req, res, next) => {
     }
 };
 export const getAllComments = async (req, res, next) => {
+    const { page = 1, limit = 10, sort = "newest" } = req.query;
     try {
-        const result = await getAllCommentService();
+        const result = await getAllCommentService({ page: Number(page), limit: Number(limit), sort: sort, });
         return res.json({ success: true, data: result, message: "Comment found successfully" });
     }
     catch (error) {

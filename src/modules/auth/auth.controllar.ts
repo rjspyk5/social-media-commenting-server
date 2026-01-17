@@ -3,9 +3,9 @@ import type { regSchemaType } from "./auth.schema.js";
 import { loginService, registrationService, userDetailsService } from "./auth.service.js";
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password } = req.body ?? {};
+    const { email, password ,name} = req.body ?? {};
     try {
-        const token = await loginService({ email, password })
+        const token = await loginService({ email, password})
         res.json({
             success: true,
             message: "Login successfully",
@@ -18,9 +18,9 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 }
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password, role } = req.body ?? {};
+    const { email, password,name } = req.body ?? {};
     try {
-        const user = await registrationService({ email, password, role })
+        const user = await registrationService({ email, password,name  })
         return res.json({
             success: true,
             message: "User created successfully",

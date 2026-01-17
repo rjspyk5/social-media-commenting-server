@@ -18,14 +18,14 @@ export const createComment = async (req: Request, res: Response, next: NextFunct
 
 
 export const getAllComments = async (req: Request, res: Response, next: NextFunction) => {
+    const { page = 1, limit = 10, sort = "newest" } = req.query;
     try {
-        const result = await getAllCommentService()
+        const result = await getAllCommentService({ page: Number(page), limit: Number(limit), sort: sort as string, })
         return res.json({ success: true, data: result, message: "Comment found successfully" })
     } catch (error) {
         next(error)
     }
 }
-
 
 export const giveLike = async (req: Request, res: Response, next: NextFunction) => {
     const commentId = req?.params?.id
@@ -50,9 +50,9 @@ export const giveDisLike = async (req: Request, res: Response, next: NextFunctio
 
 
 export const deleteComment = async (req: Request, res: Response, next: NextFunction) => {
- const commentId= req.params.id
+    const commentId = req.params.id
     try {
-        const result=await delteCommentService(commentId as string)
+        const result = await delteCommentService(commentId as string)
         return res.json({ success: true, data: result, message: "Comment deleted successfully" })
     } catch (error) {
         next(error)
@@ -60,11 +60,11 @@ export const deleteComment = async (req: Request, res: Response, next: NextFunct
 }
 
 export const editComment = async (req: Request, res: Response, next: NextFunction) => {
-    const text= req.body.text
-    const commentId= req.params.id
-    const userId= req?.user?.id
+    const text = req.body.text
+    const commentId = req.params.id
+    const userId = req?.user?.id
     try {
-        const result=await editCommentService(text,commentId as string,userId)
+        const result = await editCommentService(text, commentId as string, userId)
         return res.json({ success: true, data: result, message: "Comment edited successfully" })
 
     } catch (error) {

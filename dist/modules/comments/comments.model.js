@@ -21,7 +21,19 @@ const commentSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
         }
-    ]
+    ],
+    likesCount: {
+        type: Number,
+        default: 0,
+        min: 0,
+        index: true,
+    },
+    dislikesCount: {
+        type: Number,
+        default: 0,
+        min: 0,
+        index: true,
+    },
 }, {
     timestamps: true,
     toJSON: {
@@ -35,5 +47,8 @@ const commentSchema = new Schema({
         }
     }
 });
+commentSchema.index({ createdAt: -1 });
+commentSchema.index({ likesCount: -1 });
+commentSchema.index({ dislikesCount: -1 });
 export const CommentModel = mongoose.model("Comment", commentSchema);
 //# sourceMappingURL=comments.model.js.map

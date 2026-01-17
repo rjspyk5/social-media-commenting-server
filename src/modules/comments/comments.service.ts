@@ -2,9 +2,32 @@ import type mongoose from "mongoose";
 import { CommentModel } from "./comments.model.js"
 import { Types } from "mongoose";
 
-export const getAllCommentService = async () => {
-    const result = await CommentModel.find()
-    return result;
+export const getAllCommentService = async ({ page = 1, limit = 10, sort = "newest", parentId = null }) => {
+    const skip = (page - 1) * limit
+    let sortStage = {};
+    switch (sort) {
+        case "mostLiked":
+            sortStage = { likeCount: -1 };
+            break;
+        case "mostDisliked":
+            sortStage = { dislikeCount: -1 };
+            break;
+        case "oldest":
+            sortStage = { createdAt: 1 };
+            break;
+        default:
+            sortStage = { createdAt: -1 };
+    }
+
+    const allComments = await CommentModel.find().select("-__v").populate("author", "_id name").sort(sortStage).skip(skip).limit(Number(limit)).lean();
+    const totalComment = await CommentModel.countDocuments();
+
+    return {
+        allComments,
+        totalPages: Math.ceil(totalComment / limit),
+        total: totalComment
+    }
+
 }
 
 // const getComments = async (req, res) => {
@@ -36,64 +59,73 @@ export const getComment = async (id: string) => {
 
 export const likeComment = async (id: string, user: string) => {
     if (!Types.ObjectId.isValid(id)) {
-        throw new Error("Invalid comment id")
+        throw new Error("Invalid comment id");
     }
 
     if (!Types.ObjectId.isValid(user)) {
-        throw new Error("Invalid user id")
-    }
-    const comment = await CommentModel.findById(id)
-
-    if (!comment) {
-        throw new Error("Comment not found")
+        throw new Error("Invalid user id");
     }
 
-    const userObjectId = new Types.ObjectId(user)
-    const isAlreadyLike = comment.likes.some(
-        (id) => String(id) === user
-    )
-    if (isAlreadyLike) {
+    const userObjectId = new Types.ObjectId(user);
+
+    const updated = await CommentModel.findOneAndUpdate(
+        {
+            _id: id,
+            likes: { $ne: userObjectId } // prevent double-like
+        },
+        {
+            $push: { likes: userObjectId },
+            $pull: { dislikes: userObjectId },
+            $inc: { likesCount: 1, dislikesCount: -1 }
+        },
+        { new: true }
+    );
+
+    if (!updated) {
         throw new Error("You have already liked this comment");
     }
-    comment.dislikes = comment.dislikes.filter(id => String(id) !== user);
-    comment.likes.push(userObjectId)
-    await comment.save()
+
     return {
-        id: comment._id,
-        likesCount: comment.likes.length,
-        dislikesCount: comment.dislikes.length
-    }
-}
+        id: updated._id,
+        likesCount: updated.likesCount,
+        dislikesCount: updated.dislikesCount
+    };
+};
 export const disLikeComment = async (id: string, user: string) => {
     if (!Types.ObjectId.isValid(id)) {
-        throw new Error("Invalid comment id")
+        throw new Error("Invalid comment id");
     }
 
     if (!Types.ObjectId.isValid(user)) {
-        throw new Error("Invalid user id")
-    }
-    const comment = await CommentModel.findById(id)
-
-    if (!comment) {
-        throw new Error("Comment not found")
+        throw new Error("Invalid user id");
     }
 
-    const userObjectId = new Types.ObjectId(user)
-    const isAlreadyDisLike = comment.dislikes.some(
-        (id) => String(id) === user
-    )
-    if (isAlreadyDisLike) {
+    const userObjectId = new Types.ObjectId(user);
+
+    const updated = await CommentModel.findOneAndUpdate(
+        {
+            _id: id,
+            dislikes: { $ne: userObjectId }
+        },
+        {
+            $push: { dislikes: userObjectId },
+            $pull: { likes: userObjectId },
+            $inc: { dislikesCount: 1, likesCount: -1 }
+        },
+        { new: true }
+    );
+
+    if (!updated) {
         throw new Error("You have already disliked this comment");
     }
-    comment.likes = comment.likes.filter(id => String(id) !== user);
-    comment.dislikes.push(userObjectId)
-    await comment.save()
+
     return {
-        id: comment._id,
-        likesCount: comment.likes.length,
-        dislikesCount: comment.dislikes.length
-    }
-}
+        id: updated._id,
+        likesCount: updated.likesCount,
+        dislikesCount: updated.dislikesCount
+    };
+};
+
 
 export const editCommentService = async (text: string, commentId: string, userId: string) => {
     if (!Types.ObjectId.isValid(commentId)) {

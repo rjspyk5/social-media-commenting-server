@@ -7,8 +7,8 @@ import { number } from "zod";
 const userSchema = new Schema<regSchemaType>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: false },
-    role: { type: String, enum: ["admin", "user", "deliveryHero"], required: true },
     phone: { type: number },
+    name: { type: String,required: true },
 })
 
 

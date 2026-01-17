@@ -16,14 +16,11 @@ export const registerSchema = z.object({
         })
         .min(1, "Password cannot be empty"),
 
-    role: z
-        .string({
-            required_error: "Role is required",
-            invalid_type_error: "Role must be a string",
-        })
-        .min(1, "Role cannot be empty")
-        .optional(),
-    phone:z.number().optional()
+    name: z.string({
+        required_error: "Name is required",
+        invalid_type_error: "Name must be a string",
+    }),
+    phone: z.number().optional()
 });
 
 export const loginSchema = z.object({

@@ -4,6 +4,8 @@ export declare const CommentModel: mongoose.Model<{
     author: mongoose.Types.ObjectId;
     likes: mongoose.Types.ObjectId[];
     dislikes: mongoose.Types.ObjectId[];
+    likesCount: number;
+    dislikesCount: number;
 } & mongoose.DefaultTimestampProps, {}, {}, {
     id: string;
 }, mongoose.Document<unknown, {}, {
@@ -11,6 +13,8 @@ export declare const CommentModel: mongoose.Model<{
     author: mongoose.Types.ObjectId;
     likes: mongoose.Types.ObjectId[];
     dislikes: mongoose.Types.ObjectId[];
+    likesCount: number;
+    dislikesCount: number;
 } & mongoose.DefaultTimestampProps, {
     id: string;
 }, {
@@ -23,6 +27,8 @@ export declare const CommentModel: mongoose.Model<{
     author: mongoose.Types.ObjectId;
     likes: mongoose.Types.ObjectId[];
     dislikes: mongoose.Types.ObjectId[];
+    likesCount: number;
+    dislikesCount: number;
 } & mongoose.DefaultTimestampProps & {
     _id: mongoose.Types.ObjectId;
 } & {
@@ -39,6 +45,8 @@ export declare const CommentModel: mongoose.Model<{
     author: mongoose.Types.ObjectId;
     likes: mongoose.Types.ObjectId[];
     dislikes: mongoose.Types.ObjectId[];
+    likesCount: number;
+    dislikesCount: number;
 } & mongoose.DefaultTimestampProps, any, {
     [path: string]: mongoose.SchemaDefinitionProperty<undefined, any, any>;
 } | {
@@ -48,6 +56,8 @@ export declare const CommentModel: mongoose.Model<{
     author: mongoose.Types.ObjectId;
     likes: mongoose.Types.ObjectId[];
     dislikes: mongoose.Types.ObjectId[];
+    likesCount: number;
+    dislikesCount: number;
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
@@ -59,6 +69,8 @@ export declare const CommentModel: mongoose.Model<{
     author: mongoose.Types.ObjectId;
     likes: mongoose.Types.ObjectId[];
     dislikes: mongoose.Types.ObjectId[];
+    likesCount: number;
+    dislikesCount: number;
     createdAt: NativeDate;
     updatedAt: NativeDate;
 } & {
