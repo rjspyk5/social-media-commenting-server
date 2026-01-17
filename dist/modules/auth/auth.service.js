@@ -18,7 +18,7 @@ export const loginService = async (data) => {
     if (!isPasswordMatched) {
         throw new Error("Invalid Password");
     }
-    const token = generateJwtToken(userExist.email);
+    const token = generateJwtToken(userExist.email, userExist._id);
     return token;
 };
 export const userDetailsService = async (email) => {

@@ -22,6 +22,18 @@ const commentSchema = new Schema({
             ref: "User",
         }
     ]
-}, { timestamps: true });
+}, {
+    timestamps: true,
+    toJSON: {
+        transform: (_doc, ret) => {
+            ret.id = ret._id.toString();
+            delete ret._id;
+            delete ret.createdAt;
+            delete ret.updatedAt;
+            delete ret.__v;
+            return ret;
+        }
+    }
+});
 export const CommentModel = mongoose.model("Comment", commentSchema);
 //# sourceMappingURL=comments.model.js.map

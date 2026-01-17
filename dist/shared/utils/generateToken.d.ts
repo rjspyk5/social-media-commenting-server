@@ -1,4 +1,3 @@
-import jwt from "jsonwebtoken";
-export declare const generateJwtToken: (email: string) => string;
-export declare const verifyJwt: (token: string) => string | jwt.JwtPayload;
+import type mongoose from "mongoose";
+export declare const generateJwtToken: (email: string, id: mongoose.Types.ObjectId) => string;
 //# sourceMappingURL=generateToken.d.ts.map

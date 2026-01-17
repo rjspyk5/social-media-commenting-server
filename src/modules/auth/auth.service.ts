@@ -25,7 +25,7 @@ export const loginService = async (data: loginSchemaType) => {
         throw new Error("Invalid Password");
     }
 
-    const token = generateJwtToken(userExist.email)
+    const token = generateJwtToken(userExist.email, userExist._id)
 
     return token
 }
