@@ -1,3 +1,4 @@
+
 import type mongoose from "mongoose";
 import { CommentModel } from "./comments.model.js"
 import { Types } from "mongoose";
@@ -123,6 +124,11 @@ export const editCommentService = async (text: string, commentId: string, userId
     if (!comment) {
         throw new Error("Comment not found");
     }
+    const isAuthorized = comment.author.equals(userId)
+    if (!isAuthorized) {
+        throw new Error("You are not authorized to edit this comment");
+    }
+
     comment.text = text;
     await comment.save();
     return {
@@ -132,7 +138,7 @@ export const editCommentService = async (text: string, commentId: string, userId
     };
 }
 
-export const delteCommentService = async (commentId: string) => {
+export const delteCommentService = async (commentId: string,userId: string) => {
     if (!Types.ObjectId.isValid(commentId)) {
         throw new Error("Invalid comment id");
     }
@@ -141,6 +147,10 @@ export const delteCommentService = async (commentId: string) => {
 
     if (!comment) {
         throw new Error("Comment not found");
+    }
+    const isAuthorized = comment.author.equals(userId)
+    if (!isAuthorized) {
+        throw new Error("You are not authorized to edit this comment");
     }
     const result = await CommentModel.findByIdAndDelete(commentId);
     return result

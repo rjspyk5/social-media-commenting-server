@@ -99,7 +99,7 @@ export declare const editCommentService: (text: string, commentId: string, userI
     text: string;
     updatedAt: NativeDate;
 }>;
-export declare const delteCommentService: (commentId: string) => Promise<(mongoose.Document<unknown, {}, {
+export declare const delteCommentService: (commentId: string, userId: string) => Promise<(mongoose.Document<unknown, {}, {
     text: string;
     author: Types.ObjectId;
     likes: Types.ObjectId[];

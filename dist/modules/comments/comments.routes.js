@@ -4,8 +4,8 @@ import { verifyToken } from "../../shared/middleware/verifyToken.js";
 export const commentsRouter = Router();
 commentsRouter.get("/", getAllComments);
 commentsRouter.post("/", verifyToken, createComment);
-commentsRouter.put("/:id", editComment);
 commentsRouter.put("/like/:id", verifyToken, giveLike);
 commentsRouter.put("/dislike/:id", verifyToken, giveDisLike);
+commentsRouter.put("/:id", verifyToken, editComment);
 commentsRouter.delete("/:id", verifyToken, deleteComment);
 //# sourceMappingURL=comments.routes.js.map

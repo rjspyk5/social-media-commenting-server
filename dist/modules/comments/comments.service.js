@@ -94,6 +94,10 @@ export const editCommentService = async (text, commentId, userId) => {
     if (!comment) {
         throw new Error("Comment not found");
     }
+    const isAuthorized = comment.author.equals(userId);
+    if (!isAuthorized) {
+        throw new Error("You are not authorized to edit this comment");
+    }
     comment.text = text;
     await comment.save();
     return {
@@ -102,13 +106,17 @@ export const editCommentService = async (text, commentId, userId) => {
         updatedAt: comment.updatedAt
     };
 };
-export const delteCommentService = async (commentId) => {
+export const delteCommentService = async (commentId, userId) => {
     if (!Types.ObjectId.isValid(commentId)) {
         throw new Error("Invalid comment id");
     }
     const comment = await CommentModel.findById(commentId);
     if (!comment) {
         throw new Error("Comment not found");
+    }
+    const isAuthorized = comment.author.equals(userId);
+    if (!isAuthorized) {
+        throw new Error("You are not authorized to edit this comment");
     }
     const result = await CommentModel.findByIdAndDelete(commentId);
     return result;

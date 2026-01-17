@@ -48,8 +48,9 @@ export const giveDisLike = async (req, res, next) => {
 };
 export const deleteComment = async (req, res, next) => {
     const commentId = req.params.id;
+    const userId = req?.user?.id;
     try {
-        const result = await delteCommentService(commentId);
+        const result = await delteCommentService(commentId, userId);
         return res.json({ success: true, data: result, message: "Comment deleted successfully" });
     }
     catch (error) {
