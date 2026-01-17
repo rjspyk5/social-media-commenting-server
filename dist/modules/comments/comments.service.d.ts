@@ -1,9 +1,10 @@
 import type mongoose from "mongoose";
+import { Types } from "mongoose";
 export declare const getAllCommentService: () => Promise<(mongoose.Document<unknown, {}, {
     text: string;
-    author: mongoose.Types.ObjectId;
-    likes: mongoose.Types.ObjectId[];
-    dislikes: mongoose.Types.ObjectId[];
+    author: Types.ObjectId;
+    likes: Types.ObjectId[];
+    dislikes: Types.ObjectId[];
 } & mongoose.DefaultTimestampProps, {
     id: string;
 }, {
@@ -13,11 +14,11 @@ export declare const getAllCommentService: () => Promise<(mongoose.Document<unkn
     };
 }> & Omit<{
     text: string;
-    author: mongoose.Types.ObjectId;
-    likes: mongoose.Types.ObjectId[];
-    dislikes: mongoose.Types.ObjectId[];
+    author: Types.ObjectId;
+    likes: Types.ObjectId[];
+    dislikes: Types.ObjectId[];
 } & mongoose.DefaultTimestampProps & {
-    _id: mongoose.Types.ObjectId;
+    _id: Types.ObjectId;
 } & {
     __v: number;
 }, "id"> & {
@@ -28,9 +29,9 @@ export declare const createCommentService: (payload: {
     author: mongoose.Types.ObjectId;
 }) => Promise<mongoose.Document<unknown, {}, {
     text: string;
-    author: mongoose.Types.ObjectId;
-    likes: mongoose.Types.ObjectId[];
-    dislikes: mongoose.Types.ObjectId[];
+    author: Types.ObjectId;
+    likes: Types.ObjectId[];
+    dislikes: Types.ObjectId[];
 } & mongoose.DefaultTimestampProps, {
     id: string;
 }, {
@@ -40,14 +41,48 @@ export declare const createCommentService: (payload: {
     };
 }> & Omit<{
     text: string;
-    author: mongoose.Types.ObjectId;
-    likes: mongoose.Types.ObjectId[];
-    dislikes: mongoose.Types.ObjectId[];
+    author: Types.ObjectId;
+    likes: Types.ObjectId[];
+    dislikes: Types.ObjectId[];
 } & mongoose.DefaultTimestampProps & {
-    _id: mongoose.Types.ObjectId;
+    _id: Types.ObjectId;
 } & {
     __v: number;
 }, "id"> & {
     id: string;
+}>;
+export declare const getComment: (id: string) => Promise<(mongoose.Document<unknown, {}, {
+    text: string;
+    author: Types.ObjectId;
+    likes: Types.ObjectId[];
+    dislikes: Types.ObjectId[];
+} & mongoose.DefaultTimestampProps, {
+    id: string;
+}, {
+    timestamps: true;
+    toJSON: {
+        transform: (_doc: mongoose.HydratedDocument<any>, ret: any) => any;
+    };
+}> & Omit<{
+    text: string;
+    author: Types.ObjectId;
+    likes: Types.ObjectId[];
+    dislikes: Types.ObjectId[];
+} & mongoose.DefaultTimestampProps & {
+    _id: Types.ObjectId;
+} & {
+    __v: number;
+}, "id"> & {
+    id: string;
+}) | null>;
+export declare const likeComment: (id: string, user: string) => Promise<{
+    id: Types.ObjectId;
+    likesCount: number;
+    dislikesCount: number;
+}>;
+export declare const disLikeComment: (id: string, user: string) => Promise<{
+    id: Types.ObjectId;
+    likesCount: number;
+    dislikesCount: number;
 }>;
 //# sourceMappingURL=comments.service.d.ts.map

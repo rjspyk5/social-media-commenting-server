@@ -1,4 +1,4 @@
-import { createCommentService, getAllCommentService } from "./comments.service.js";
+import { createCommentService, disLikeComment, getAllCommentService, getComment, likeComment } from "./comments.service.js";
 export const createComment = async (req, res, next) => {
     const text = req.body.text;
     const userId = req?.user?.id;
@@ -25,11 +25,25 @@ export const getAllComments = async (req, res, next) => {
 };
 export const giveLike = async (req, res, next) => {
     const commentId = req?.params?.id;
-    const userEmail = req?.user?.email;
-    const isAlreadyLike = false;
-    const isAlreadyDislike = false;
-    // todo:remove dislike\
-    // todo:add like
+    const userId = req?.user?.id;
+    try {
+        const result = await likeComment(commentId, userId);
+        return res.json({ success: true, data: result, message: "Comment liked successfully" });
+    }
+    catch (error) {
+        next(error);
+    }
+};
+export const giveDisLike = async (req, res, next) => {
+    const commentId = req?.params?.id;
+    const userId = req?.user?.id;
+    try {
+        const result = await disLikeComment(commentId, userId);
+        return res.json({ success: true, data: result, message: "Comment liked successfully" });
+    }
+    catch (error) {
+        next(error);
+    }
 };
 export const deleteComment = async (req, res, next) => {
 };
