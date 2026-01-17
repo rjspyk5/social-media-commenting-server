@@ -36,7 +36,6 @@ export const likeComment = async (id, user) => {
     if (!comment) {
         throw new Error("Comment not found");
     }
-    console.log(comment, "comment");
     const userObjectId = new Types.ObjectId(user);
     const isAlreadyLike = comment.likes.some((id) => String(id) === user);
     if (isAlreadyLike) {
@@ -75,5 +74,32 @@ export const disLikeComment = async (id, user) => {
         likesCount: comment.likes.length,
         dislikesCount: comment.dislikes.length
     };
+};
+export const editCommentService = async (text, commentId, userId) => {
+    if (!Types.ObjectId.isValid(commentId)) {
+        throw new Error("Invalid comment id");
+    }
+    const comment = await CommentModel.findById(commentId);
+    if (!comment) {
+        throw new Error("Comment not found");
+    }
+    comment.text = text;
+    await comment.save();
+    return {
+        id: comment._id,
+        text: comment.text,
+        updatedAt: comment.updatedAt
+    };
+};
+export const delteCommentService = async (commentId) => {
+    if (!Types.ObjectId.isValid(commentId)) {
+        throw new Error("Invalid comment id");
+    }
+    const comment = await CommentModel.findById(commentId);
+    if (!comment) {
+        throw new Error("Comment not found");
+    }
+    const result = await CommentModel.findByIdAndDelete(commentId);
+    return result;
 };
 //# sourceMappingURL=comments.service.js.map

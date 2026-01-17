@@ -3,6 +3,6 @@ export declare const createComment: (req: Request, res: Response, next: NextFunc
 export declare const getAllComments: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
 export declare const giveLike: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
 export declare const giveDisLike: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
-export declare const deleteComment: (req: Request, res: Response, next: NextFunction) => Promise<void>;
-export declare const editComment: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+export declare const deleteComment: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
+export declare const editComment: (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
 //# sourceMappingURL=comments.controllar.d.ts.map

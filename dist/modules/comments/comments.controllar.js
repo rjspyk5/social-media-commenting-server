@@ -1,4 +1,4 @@
-import { createCommentService, disLikeComment, getAllCommentService, getComment, likeComment } from "./comments.service.js";
+import { createCommentService, delteCommentService, disLikeComment, editCommentService, getAllCommentService, getComment, likeComment } from "./comments.service.js";
 export const createComment = async (req, res, next) => {
     const text = req.body.text;
     const userId = req?.user?.id;
@@ -46,7 +46,25 @@ export const giveDisLike = async (req, res, next) => {
     }
 };
 export const deleteComment = async (req, res, next) => {
+    const commentId = req.params.id;
+    try {
+        const result = await delteCommentService(commentId);
+        return res.json({ success: true, data: result, message: "Comment deleted successfully" });
+    }
+    catch (error) {
+        next(error);
+    }
 };
 export const editComment = async (req, res, next) => {
+    const text = req.body.text;
+    const commentId = req.params.id;
+    const userId = req?.user?.id;
+    try {
+        const result = await editCommentService(text, commentId, userId);
+        return res.json({ success: true, data: result, message: "Comment edited successfully" });
+    }
+    catch (error) {
+        next(error);
+    }
 };
 //# sourceMappingURL=comments.controllar.js.map

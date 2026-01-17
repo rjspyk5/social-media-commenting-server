@@ -47,7 +47,7 @@ export const likeComment = async (id: string, user: string) => {
     if (!comment) {
         throw new Error("Comment not found")
     }
-    console.log(comment, "comment")
+
     const userObjectId = new Types.ObjectId(user)
     const isAlreadyLike = comment.likes.some(
         (id) => String(id) === user
@@ -55,7 +55,7 @@ export const likeComment = async (id: string, user: string) => {
     if (isAlreadyLike) {
         throw new Error("You have already liked this comment");
     }
-    comment.dislikes = comment.dislikes.filter(id =>String( id) !== user);
+    comment.dislikes = comment.dislikes.filter(id => String(id) !== user);
     comment.likes.push(userObjectId)
     await comment.save()
     return {
@@ -85,7 +85,7 @@ export const disLikeComment = async (id: string, user: string) => {
     if (isAlreadyDisLike) {
         throw new Error("You have already disliked this comment");
     }
-    comment.likes = comment.likes.filter(id =>String( id) !== user);
+    comment.likes = comment.likes.filter(id => String(id) !== user);
     comment.dislikes.push(userObjectId)
     await comment.save()
     return {
@@ -93,4 +93,37 @@ export const disLikeComment = async (id: string, user: string) => {
         likesCount: comment.likes.length,
         dislikesCount: comment.dislikes.length
     }
+}
+
+export const editCommentService = async (text: string, commentId: string, userId: string) => {
+    if (!Types.ObjectId.isValid(commentId)) {
+        throw new Error("Invalid comment id");
+    }
+    const comment = await CommentModel.findById(commentId);
+
+    if (!comment) {
+        throw new Error("Comment not found");
+    }
+    comment.text = text;
+    await comment.save();
+    return {
+        id: comment._id,
+        text: comment.text,
+        updatedAt: comment.updatedAt
+    };
+}
+
+export const delteCommentService = async (commentId: string) => {
+    if (!Types.ObjectId.isValid(commentId)) {
+        throw new Error("Invalid comment id");
+    }
+
+    const comment = await CommentModel.findById(commentId);
+
+    if (!comment) {
+        throw new Error("Comment not found");
+    }
+    const result = await CommentModel.findByIdAndDelete(commentId);
+    return result
+
 }
